@@ -18,6 +18,18 @@ function App() {
     countId.current += 1;
     setDate([newPost, ...data]);
   };
+  const onDelete = (targetedId) => {
+    const newData = data.filter((it) => it.id !== targetedId);
+    setDate(newData);
+    console.log(`${targetedId}가 삭제되었습니다.`);
+  };
+  const onEdit = (targetedId, newContent) => {
+    const updateData = data.map((it) =>
+      it.id === targetedId ? { ...it, content: newContent } : it
+    );
+    setDate(updateData);
+    console.log(`${targetedId}번째 내용: ${newContent}`);
+  };
   //   const dummyList = [
   //     {
   //       id: 1,
@@ -45,7 +57,7 @@ function App() {
   return (
     <>
       <DirayEditor onCreate={onCreate} />
-      <DiaryList diaryList={data} />
+      <DiaryList diaryList={data} onDelete={onDelete} onEdit={onEdit} />
     </>
   );
 }
